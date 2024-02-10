@@ -24,6 +24,7 @@ var ports []string
 var templateId string
 var volumeInGb int
 var volumeMountPath string
+var volumeId string
 
 var CreatePodCmd = &cobra.Command{
 	Use:   "pod",
@@ -44,6 +45,7 @@ var CreatePodCmd = &cobra.Command{
 			TemplateId:        templateId,
 			VolumeInGb:        volumeInGb,
 			VolumeMountPath:   volumeMountPath,
+			NetworkVolumeId:   volumeId,
 		}
 		if len(ports) > 0 {
 			input.Ports = strings.Join(ports, ",")
@@ -90,6 +92,7 @@ func init() {
 	CreatePodCmd.Flags().StringVar(&templateId, "templateId", "", "templateId to use with the pod")
 	CreatePodCmd.Flags().IntVar(&volumeInGb, "volumeSize", 1, "persistent volume disk size in GB")
 	CreatePodCmd.Flags().StringVar(&volumeMountPath, "volumePath", "/runpod", "container volume path")
+	CreatePodCmd.Flags().StringVar(&volumeId, "volumeId", "", "network volume id")
 
 	CreatePodCmd.MarkFlagRequired("gpuType")   //nolint
 	CreatePodCmd.MarkFlagRequired("imageName") //nolint
